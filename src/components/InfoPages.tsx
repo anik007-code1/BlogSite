@@ -9,6 +9,7 @@ interface InfoPagesProps {
 export const InfoPages: React.FC<InfoPagesProps> = ({ pageType, onNavigate }) => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [submittedEmail, setSubmittedEmail] = useState('');
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ export const InfoPages: React.FC<InfoPagesProps> = ({ pageType, onNavigate }) =>
         body: JSON.stringify(formData)
       });
       if (response.ok) {
+        setSubmittedEmail(formData.email);
         setFormStatus('success');
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
@@ -230,7 +232,7 @@ export const InfoPages: React.FC<InfoPagesProps> = ({ pageType, onNavigate }) =>
                 <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto animate-bounce" />
                 <h3 className="font-serif text-lg font-bold text-emerald-800">Manuscript Request Sent Successfully</h3>
                 <p className="text-xs text-emerald-700 max-w-md mx-auto">
-                  Your comments have been securely logged in our platform queue. A system administrator will review your proposal at <strong>anik.jobdesk@gmail.com</strong>.
+                  Your comments have been securely logged in our platform queue. A system administrator will review your proposal at <strong>{submittedEmail || 'your email'}</strong>.
                 </p>
                 <button
                   onClick={() => setFormStatus('idle')}
@@ -259,7 +261,7 @@ export const InfoPages: React.FC<InfoPagesProps> = ({ pageType, onNavigate }) =>
                       type="email"
                       required
                       className="w-full bg-cream-paper/40 border border-cream-dark/80 rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-brass-accent transition-all text-charcoal-intense"
-                      placeholder="anik.jobdesk@gmail.com"
+                      placeholder="name@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
