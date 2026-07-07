@@ -1,0 +1,6 @@
+{
+  "name": "LLM Review Pro",
+  "description": "An elegant, minimalist editorial blogging system and content management dashboard with dynamic traffic analytics, rich post editor, and responsive layout.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
