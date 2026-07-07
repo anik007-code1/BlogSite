@@ -133,7 +133,17 @@ export default function App() {
 
   useEffect(() => {
     const preloaded = document.getElementById('preloaded-articles');
-    if (!preloaded) {
+    let hasPreloadedData = false;
+    if (preloaded && preloaded.textContent) {
+      try {
+        const parsed = JSON.parse(preloaded.textContent);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          hasPreloadedData = true;
+        }
+      } catch (e) {}
+    }
+
+    if (!hasPreloadedData) {
       fetchArticles();
     } else {
       setIsLoading(false);
