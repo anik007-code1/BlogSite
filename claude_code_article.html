@@ -1,0 +1,160 @@
+<p class="mb-6 font-body-lg text-body-lg text-charcoal-intense leading-relaxed">
+  Historically, AI development tools have been split between full-blown custom editors (like Cursor) and editor extensions (like GitHub Copilot). Anthropic recently introduced a third, highly potent paradigm: <strong>Claude Code</strong>. Operating directly inside your command line, Claude Code is a terminal-based agent that can search, explain, edit, test, and commit code across your workspace.
+</p>
+
+<p class="mb-6 leading-relaxed">
+  Powered by the state-of-the-art **Claude 3.7 Sonnet** model, Claude Code accesses the local filesystem, runs compilation/test commands, and processes feedback loop structures dynamically. It is a highly minimalist, ultra-fast tool preferred by developers who are loath to leave their highly customized Vim, Emacs, or VS Code terminal buffers. Let's explore its core features, pricing, strengths, and weaknesses.
+</p>
+
+<!-- CORE FEATURES -->
+<div class="my-10 grid grid-cols-1 md:grid-cols-3 gap-6 font-sans">
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-rose-50 text-rose-700 rounded-lg font-bold text-sm">🐚</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Terminal-Native</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      No bulky Electron wrapper. Claude Code runs in your native shell, integrating perfectly with tmux, fzf, and other terminal workflows.
+    </p>
+  </div>
+  
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-emerald-50 text-emerald-700 rounded-lg font-bold text-sm">🛠</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Direct CLI Tools</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      Claude Code has tool-calling permissions to write, replace, read, grep, find, and execute commands on your local shell.
+    </p>
+  </div>
+
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-amber-50 text-amber-700 rounded-lg font-bold text-sm">🌀</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Agentic Loop</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      It doesn't just output text; it performs iterative shell-execution cycles to diagnose errors and refine its code edits.
+    </p>
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">1. Terminal Efficiency & Command Orchestration</h2>
+
+<p class="mb-6 leading-relaxed">
+  Claude Code's interface is extraordinarily lean. After installing the package via NPM/NPX, you launch it directly inside any project directory:
+</p>
+
+<pre class="my-6 p-5 bg-[#1e1e1c] text-[#f5f5f3] rounded-xl font-mono text-xs overflow-x-auto leading-relaxed border border-[#333330]">
+<span class="text-[#8c8c88] font-bold"># Start the Claude Code session</span>
+$ npx @anthropic-ai/claude-code
+
+<span class="text-brass-accent">claude &gt;</span> <span class="text-emerald-400">Search for where our JWT authentication cookie is configured and make it expire in 7 days.</span>
+<span class="text-sky-400">🔍 Searching codebase for "JWT cookie"...</span>
+<span class="text-sky-400">📁 Found in src/lib/auth.ts. Reading file...</span>
+<span class="text-sky-400">✍ Proposing edit to src/lib/auth.ts:</span>
+<span class="text-emerald-500">+ maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days</span>
+<span class="text-rose-500">- maxAge: 24 * 60 * 60 * 1000 // 1 day</span>
+
+<span class="text-brass-accent">claude &gt;</span> <span class="text-sky-400">Would you like me to run 'npm run build' to verify? [Y/n]</span> y
+<span class="text-emerald-400">✓ Build succeeded!</span>
+</pre>
+
+<p class="mb-6 leading-relaxed">
+  This direct execution is incredibly powerful. By combining search, file editing, and compiler execution into a single prompt loop, Claude Code cuts down on the physical dragging-and-dropping and copy-pasting of code blocks that often bogs down web-based chatbots.
+</p>
+
+<div class="my-10 rounded-xl overflow-hidden border border-cream-dark shadow-md bg-cream-dark">
+  <img 
+    src="/src/assets/images/claude_code_cli_1783400541999.jpg" 
+    alt="Claude Code CLI session in terminal with code edits" 
+    class="w-full h-auto object-cover max-h-[380px]"
+    referrerPolicy="no-referrer"
+    loading="lazy"
+  />
+  <div class="p-4 bg-cream-paper/70 border-t border-cream-dark/50 text-center font-sans text-xs text-[#7c7a72] italic">
+    Figure 3: Anthropic's Claude Code CLI tool orchestrating local tests, search scripts, and source control.
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">2. Pricing & Cost Model</h2>
+<p class="mb-6 leading-relaxed">
+  Claude Code uses a pay-as-you-go model tied directly to Anthropic's API pricing structure, rather than a flat monthly fee. This model is exceptionally fair for occasional users, but can accumulate substantial charges for power users.
+</p>
+
+<!-- PRICING TABLE -->
+<div class="my-8 overflow-x-auto font-sans rounded-xl border border-cream-dark/80 shadow-sm">
+  <table class="w-full text-left border-collapse bg-cream-paper">
+    <thead>
+      <tr class="bg-cream-dark/40 text-[#1a1a18] text-xs font-bold uppercase tracking-wider border-b border-cream-dark">
+        <th class="py-4 px-6">Billing Item</th>
+        <th class="py-4 px-6">API Unit Cost (Claude 3.7 Sonnet)</th>
+        <th class="py-4 px-6">Token Reduction Features</th>
+        <th class="py-4 px-6">Realistic Cost Estimate</th>
+      </tr>
+    </thead>
+    <tbody class="text-sm divide-y divide-cream-dark/50 text-[#2a2a28]">
+      <tr>
+        <td class="py-4 px-6 font-semibold">Input Tokens</td>
+        <td class="py-4 px-6">$3.00 / million tokens</td>
+        <td class="py-4 px-6" rowspan="2">Prompt Caching supported (reduces cost of cached segments by 90%)</td>
+        <td class="py-4 px-6" rowspan="2">
+          <strong>Moderate use:</strong> $10–$25 / month<br />
+          <strong>Heavier agentic use:</strong> $40–$100+ / month
+        </td>
+      </tr>
+      <tr class="bg-cream-paper/40">
+        <td class="py-4 px-6 font-semibold text-brass-accent">Output Tokens</td>
+        <td class="py-4 px-6 font-semibold text-brass-accent">$15.00 / million tokens</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">3. Honest Pros & Cons</h2>
+
+<div class="my-10 grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
+  <!-- PROS -->
+  <div class="p-6 bg-emerald-50/40 border border-emerald-100 rounded-2xl">
+    <h3 class="font-bold text-emerald-800 text-lg mb-4 flex items-center gap-2">
+      <span class="text-xl">✓</span> Advantages
+    </h3>
+    <ul class="space-y-3.5 text-sm text-emerald-950 leading-relaxed">
+      <li>
+        <strong>Zero UI Overhead:</strong> Perfect for keyboard-only purists. Operates seamlessly inside existing multiplexers (tmux) without needing separate window monitors.
+      </li>
+      <li>
+        <strong>Incredible Reasoning Power:</strong> Claude 3.7 Sonnet is arguably the best model on the planet for code understanding, refactoring, and logical structuring.
+      </li>
+      <li>
+        <strong>Prompt Caching Integration:</strong> By utilizing prompt caching automatically, cost-per-query falls dramatically during continuous, multi-turn local sessions.
+      </li>
+      <li>
+        <strong>Great Git Integration:</strong> It can stage changes, draft beautiful commit messages, and commit them directly if you authorize it.
+      </li>
+    </ul>
+  </div>
+
+  <!-- CONS -->
+  <div class="p-6 bg-red-50/40 border border-red-100 rounded-2xl">
+    <h3 class="font-bold text-red-800 text-lg mb-4 flex items-center gap-2">
+      <span class="text-xl">✗</span> Drawbacks
+    </h3>
+    <ul class="space-y-3.5 text-sm text-red-950 leading-relaxed">
+      <li>
+        <strong>No Visual Side-by-Side Diff:</strong> Standard CLI output isn't as visually comfortable for reviewing massive multi-file changes as a graphical split editor (like Cursor).
+      </li>
+      <li>
+        <strong>Commands and Prompts Can Get Expensive:</strong> If you run broad searches across extremely large monorepos, input tokens will scale rapidly, resulting in surprise API bills.
+      </li>
+      <li>
+        <strong>Beta Restrictions:</strong> It requires manual permission prompts for complex shell operations, which can sometimes interrupt a fluid coding session.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">4. The Verdict</h2>
+<p class="mb-6 leading-relaxed">
+  Claude Code is a spectacular, forward-looking tool for developers who live and breathe inside the terminal. Its ability to run terminal tools and execute your compilers directly makes it incredibly fast. While graphical editors remain more comfortable for junior developers or major visual layout reviews, Claude Code's raw power, speed, and deep integration with native terminal pipelines make it an essential utility for senior engineers.
+</p>

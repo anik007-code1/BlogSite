@@ -1,0 +1,155 @@
+<p class="mb-6 font-body-lg text-body-lg text-charcoal-intense leading-relaxed">
+  With the explosion of AI-native code editors, developers are demanding deep integration between the language model and their working editor. While Cursor was the first to capture mindshare, **Codeium** entered the arena with <strong>Windsurf</strong> (codeium.com/windsurf), a VS Code fork built around what they call the "AI Flow" paradigm.
+</p>
+
+<p class="mb-6 leading-relaxed">
+  Windsurf boasts a highly integrated sidebar agent called **Cascade**, which can run terminal operations, modify codebases, track active lint issues, and interact with files synchronously. Let's explore Cascade's unique architecture, pricing models, feature comparison with competitors, and realistic real-world drawbacks.
+</p>
+
+<!-- KEY CAPABILITIES -->
+<div class="my-10 grid grid-cols-1 md:grid-cols-3 gap-6 font-sans">
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-blue-50 text-blue-700 rounded-lg font-bold text-sm">🌊</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Cascade Agent</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      Cascade operates in two modes: "Chat" (for conversation) and "Write" (which allows direct system edits and tool execution).
+    </p>
+  </div>
+  
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-amber-50 text-amber-700 rounded-lg font-bold text-sm">⚡</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Codeium Autocomplete</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      Powered by Codeium's proprietary, low-latency foundation models, offering incredibly fast multi-line tab completions.
+    </p>
+  </div>
+
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-teal-50 text-teal-700 rounded-lg font-bold text-sm">👁</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Super-Context</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      Windsurf maintains an active directory parser that feeds precise repository-wide context into the model on every query.
+    </p>
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">1. Architectural Analysis: Cascade & AI Flow</h2>
+
+<p class="mb-6 leading-relaxed">
+  Windsurf's primary strength is the **Cascade** engine. In standard editors, calling an AI to write code feels like an interruption—you copy-paste the suggestion, correct imports, and run tests yourself. In Windsurf, Codeium aims to blend human and AI contributions into a singular "flow."
+</p>
+
+<p class="mb-6 leading-relaxed">
+  When Cascade is in **Write mode**, it acts as an active assistant. If you ask it to <em>"Add an export CSV button to the billing history dashboard,"</em> Cascade will search your directory, locate the billing history file, understand the schema, write the CSV conversion helper, insert the button, import the correct icons, and run the developer build script to verify compilation—all in a single stream.
+</p>
+
+<div class="my-10 rounded-xl overflow-hidden border border-cream-dark shadow-md bg-cream-dark">
+  <img 
+    src="/src/assets/images/windsurf_cascade_1783400556947.jpg" 
+    alt="Windsurf Cascade interface and AI code flow sidebar" 
+    class="w-full h-auto object-cover max-h-[380px]"
+    referrerPolicy="no-referrer"
+    loading="lazy"
+  />
+  <div class="p-4 bg-cream-paper/70 border-t border-cream-dark/50 text-center font-sans text-xs text-[#7c7a72] italic">
+    Figure 4: Windsurf's integrated Cascade interface executing direct edits and tracking compiler states.
+  </div>
+</div>
+
+<h3 class="text-xl font-serif text-charcoal-intense font-bold mt-8 mb-3">Collaborative Steerability</h3>
+<p class="mb-6 leading-relaxed">
+  What makes Windsurf incredibly comfortable is the **real-time intervention** model. While Cascade is applying edits across multiple files, you can click on any line and modify it. The agent immediately parses your manual change, adjusts its remaining plan, and continues writing without losing stride or throwing conflicting-merge errors.
+</p>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">2. Pricing Tiers</h2>
+<p class="mb-6 leading-relaxed">
+  Codeium has structured Windsurf's pricing to lower the barrier to entry, offering an attractive free tier alongside competitive premium seats.
+</p>
+
+<!-- PRICING TABLE -->
+<div class="my-8 overflow-x-auto font-sans rounded-xl border border-cream-dark/80 shadow-sm">
+  <table class="w-full text-left border-collapse bg-cream-paper">
+    <thead>
+      <tr class="bg-cream-dark/40 text-[#1a1a18] text-xs font-bold uppercase tracking-wider border-b border-cream-dark">
+        <th class="py-4 px-6">Plan</th>
+        <th class="py-4 px-6">Cost</th>
+        <th class="py-4 px-6">Cascade & Autocomplete Limits</th>
+        <th class="py-4 px-6">Included Models</th>
+      </tr>
+    </thead>
+    <tbody class="text-sm divide-y divide-cream-dark/50 text-[#2a2a28]">
+      <tr>
+        <td class="py-4 px-6 font-semibold">Free Tier</td>
+        <td class="py-4 px-6">$0</td>
+        <td class="py-4 px-6">Unlimited basic autocomplete, limited Cascade runs</td>
+        <td class="py-4 px-6">Codeium custom base models, GPT-4o-mini</td>
+      </tr>
+      <tr class="bg-cream-paper/40">
+        <td class="py-4 px-6 font-semibold text-brass-accent">Premium Pro</td>
+        <td class="py-4 px-6 font-semibold text-brass-accent">$20 / month</td>
+        <td class="py-4 px-6">Unlimited fast autocomplete, unlimited high-capacity Cascade runs</td>
+        <td class="py-4 px-6">Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro, Codeium proprietary models</td>
+      </tr>
+      <tr>
+        <td class="py-4 px-6 font-semibold">Enterprise</td>
+        <td class="py-4 px-6">Contact Sales</td>
+        <td class="py-4 px-6">Custom limits, self-hosted option, custom base model training</td>
+        <td class="py-4 px-6">Custom-trained models + all standard premium options</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">3. Thorough Pros & Cons</h2>
+
+<div class="my-10 grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
+  <!-- PROS -->
+  <div class="p-6 bg-emerald-50/40 border border-emerald-100 rounded-2xl">
+    <h3 class="font-bold text-emerald-800 text-lg mb-4 flex items-center gap-2">
+      <span class="text-xl">✓</span> Advantages
+    </h3>
+    <ul class="space-y-3.5 text-sm text-emerald-950 leading-relaxed">
+      <li>
+        <strong>Extremely Smooth Collaboration:</strong> Intercepting and steering Cascade edits feels more organic and less disruptive than Cursor's composer edits.
+      </li>
+      <li>
+        <strong>Excellent Free Tier:</strong> Offers generous access to basic features, making it a great starting point for students and hobbyists.
+      </li>
+      <li>
+        <strong>Superior Autocomplete:</strong> Codeium's proprietary autocomplete engine is noticeably faster and consumes fewer local system resources than Copilot.
+      </li>
+      <li>
+        <strong>Rich Multi-Model Access:</strong> Easily switch between Claude, GPT, Gemini, and Codeium models depending on the task's complexity.
+      </li>
+    </ul>
+  </div>
+
+  <!-- CONS -->
+  <div class="p-6 bg-red-50/40 border border-red-100 rounded-2xl">
+    <h3 class="font-bold text-red-800 text-lg mb-4 flex items-center gap-2">
+      <span class="text-xl">✗</span> Drawbacks
+    </h3>
+    <ul class="space-y-3.5 text-sm text-red-950 leading-relaxed">
+      <li>
+        <strong>Ecosystem Maturity:</strong> Cursor's visual custom elements (like inline chats, terminal CMD-K overlay, and Composer mappings) feel slightly more polished as of mid-2026.
+      </li>
+      <li>
+        <strong>Confusing Project Indexes:</strong> Large monorepos sometimes cause Cascade to lose focus, requiring manual file pinning to restore context alignment.
+      </li>
+      <li>
+        <strong>Extension Clashes:</strong> Because it is a VS Code fork, some highly specialized system extensions can occasionally conflict with the built-in Codeium engine.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">4. The Verdict</h2>
+<p class="mb-6 leading-relaxed">
+  Windsurf is a top-tier competitor to Cursor. Its signature "Cascade" engine in Write mode offers an incredibly natural, highly interactive, and fast development loop. For teams that want high-performance autocomplete coupled with an agent capable of executing complex multi-file updates, Windsurf is an exceptional choice.
+</p>

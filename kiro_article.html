@@ -1,0 +1,160 @@
+<p class="mb-6 font-body-lg text-body-lg text-charcoal-intense leading-relaxed">
+  The AI development space is currently shifting from simple autocomplete editors to **autonomous software engineering agents**. Instead of sitting inside your IDE waiting for you to trigger an update, these agents operate asynchronously as team members. Among this new wave, <strong>Kiro Code</strong> (kiro.dev) stands out as a highly resilient, git-authoritative developer companion.
+</p>
+
+<p class="mb-6 leading-relaxed">
+  Kiro is not simply a chatbot or file patcher. When assigned a ticket or assigned to a branch, Kiro spins up a sandboxed execution environment, clones the target repository, plans the required architectural changes, writes code, executes local tests to verify fixes, handles compilation errors, and packages everything into an elegant Pull Request. Let's dive deep into Kiro's agentic mechanics, pricing, capabilities, and realistic constraints.
+</p>
+
+<!-- KEY AGENT MECHANICS -->
+<div class="my-10 grid grid-cols-1 md:grid-cols-3 gap-6 font-sans">
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-purple-50 text-purple-700 rounded-lg font-bold text-sm">⚓</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Git Authoritative</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      Kiro lives inside your GitHub workflow. It picks up issues, creates feature branches, and manages complete code modifications autonomously.
+    </p>
+  </div>
+  
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-amber-50 text-amber-700 rounded-lg font-bold text-sm">🧪</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Local Testing Loop</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      The agent executes local test commands, intercepts build errors, and iteratively fixes issues before pushing code to remote branches.
+    </p>
+  </div>
+
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-blue-50 text-blue-700 rounded-lg font-bold text-sm">⚙</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Sandboxed VM</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      All command line operations and edits take place inside safe, isolated containers to prevent unintended system actions on your primary workspace.
+    </p>
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">1. Under the Hood: The Agentic Workflow</h2>
+
+<p class="mb-6 leading-relaxed">
+  To understand why Kiro represents a departure from traditional assistants, consider how a standard software bug is resolved. In Cursor or Windsurf, you must open the editor, find the files, explain the error, check the diff, and run the tests yourself. 
+</p>
+
+<p class="mb-6 leading-relaxed">
+  With Kiro, the workflow is triggered directly from your issue tracker or GitHub repository:
+</p>
+
+<div class="my-6 p-5 bg-[#fcfbf9] border border-cream-dark rounded-xl font-sans text-sm text-[#4a4a48]">
+  <ol class="list-decimal pl-5 space-y-3.5 leading-relaxed">
+    <li><strong>Assign Issue:</strong> You tag Kiro on a GitHub issue: <code>@kiro fix the broken authentication session timeout</code>.</li>
+    <li><strong>Codebase Inspection:</strong> Kiro launches its secure workspace, clones the repo, and performs semantic code search to isolate session structures.</li>
+    <li><strong>Asynchronous Coding:</strong> The planner outlines a step-by-step resolution. Kiro modifies code, updates database sessions, and verifies types.</li>
+    <li><strong>Verify via CLI:</strong> Kiro attempts to boot the application and run unit tests (e.g., <code>npm run test</code>). If tests fail, Kiro analyzes the error logs and applies hotfixes.</li>
+    <li><strong>Draft Pull Request:</strong> Once the suite passes, Kiro commits changes, pushes the branch, and drafts an annotated PR explaining the modifications.</li>
+  </ol>
+</div>
+
+<div class="my-10 rounded-xl overflow-hidden border border-cream-dark shadow-md bg-cream-dark">
+  <img 
+    src="/src/assets/images/cursor_composer_map_1783400114669.jpg" 
+    alt="Agentic software engineering loop and repository branch mapping" 
+    class="w-full h-auto object-cover max-h-[380px]"
+    referrerPolicy="no-referrer"
+    loading="lazy"
+  />
+  <div class="p-4 bg-cream-paper/70 border-t border-cream-dark/50 text-center font-sans text-xs text-[#7c7a72] italic">
+    Figure 2: Kiro's continuous agentic execution cycles mapping and modifying complex dependencies across branches.
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">2. The Pricing Landscape</h2>
+<p class="mb-6 leading-relaxed">
+  Because Kiro Code runs complex multi-step reasoning cycles inside specialized virtual containers (which can consume millions of input/output tokens per session), its pricing is designed around completed developer tasks or developer seats.
+</p>
+
+<!-- PRICING TABLE -->
+<div class="my-8 overflow-x-auto font-sans rounded-xl border border-cream-dark/80 shadow-sm">
+  <table class="w-full text-left border-collapse bg-cream-paper">
+    <thead>
+      <tr class="bg-cream-dark/40 text-[#1a1a18] text-xs font-bold uppercase tracking-wider border-b border-cream-dark">
+        <th class="py-4 px-6">Tier</th>
+        <th class="py-4 px-6">Cost</th>
+        <th class="py-4 px-6">Task Limits</th>
+        <th class="py-4 px-6">Core Capabilities Included</th>
+      </tr>
+    </thead>
+    <tbody class="text-sm divide-y divide-cream-dark/50 text-[#2a2a28]">
+      <tr>
+        <td class="py-4 px-6 font-semibold">Hobby / Starter</td>
+        <td class="py-4 px-6">$0 / mo</td>
+        <td class="py-4 px-6">3 completed tasks / mo</td>
+        <td class="py-4 px-6">Standard GitHub repository integration, basic sandboxed test runs</td>
+      </tr>
+      <tr class="bg-cream-paper/40">
+        <td class="py-4 px-6 font-semibold text-brass-accent">Developer Pro</td>
+        <td class="py-4 px-6 font-semibold text-brass-accent">$45 / mo</td>
+        <td class="py-4 px-6">30 completed tasks / mo</td>
+        <td class="py-4 px-6">Priority virtual environments, parallel agents, support for multiple test suites</td>
+      </tr>
+      <tr>
+        <td class="py-4 px-6 font-semibold">Engineering Team</td>
+        <td class="py-4 px-6">Custom Pricing</td>
+        <td class="py-4 px-6">Unlimited tasks / Dedicated capacity</td>
+        <td class="py-4 px-6">VPC deployments, SOC2 compliance, custom integrations (Jira, Linear, GitLab)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">3. Exhaustive Pros & Cons</h2>
+
+<div class="my-10 grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
+  <!-- PROS -->
+  <div class="p-6 bg-emerald-50/40 border border-emerald-100 rounded-2xl">
+    <h3 class="font-bold text-emerald-800 text-lg mb-4 flex items-center gap-2">
+      <span class="text-xl">✓</span> Advantages
+    </h3>
+    <ul class="space-y-3.5 text-sm text-emerald-950 leading-relaxed">
+      <li>
+        <strong>True Asynchronous Operations:</strong> You can assign Kiro an issue and move on to other complex engineering tasks while the agent runs in the background.
+      </li>
+      <li>
+        <strong>Test-Driven Reliability:</strong> Kiro will refuse to push code that breaks compilation or fails unit tests, keeping main branches pristine.
+      </li>
+      <li>
+        <strong>Detailed Explanations:</strong> The PR descriptions written by Kiro are outstandingly structured, detailing the exact files modified and the rationale.
+      </li>
+      <li>
+        <strong>Drastic reduction in boilerplate:</strong> Perfect for handling routine dependency upgrades, simple form creations, and boilerplate controller adjustments.
+      </li>
+    </ul>
+  </div>
+
+  <!-- CONS -->
+  <div class="p-6 bg-red-50/40 border border-red-100 rounded-2xl">
+    <h3 class="font-bold text-red-800 text-lg mb-4 flex items-center gap-2">
+      <span class="text-xl">✗</span> Drawbacks
+    </h3>
+    <ul class="space-y-3.5 text-sm text-red-950 leading-relaxed">
+      <li>
+        <strong>Vulnerability to Large Codebases:</strong> For highly legacy, un-indexed or unstructured codebases, Kiro's initial discovery runs can consume substantial tokens and time.
+      </li>
+      <li>
+        <strong>Difficulty with Architectural Decisions:</strong> While Kiro handles local bug-fixes and component creation excellently, major architectural migrations (e.g. monolithic to microservices) still require human lead-engineer steering.
+      </li>
+      <li>
+        <strong>Cost Accumulation:</strong> Large reasoning models can prove expensive if Kiro gets trapped in an infinite loop trying to fix poorly constructed tests.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">4. The Verdict</h2>
+<p class="mb-6 leading-relaxed">
+  Kiro Code (kiro.dev) represents the beginning of the end for traditional, static text-completion utilities. While there is still a clear need for human oversight to review and merge PRs, having an agent handle 30–40% of routine boilerplate coding and bug-fixing tasks increases overall output. Kiro is a brilliant investment for fast-moving startups and scaling development teams looking to supercharge their output without overloading their core staff.
+</p>

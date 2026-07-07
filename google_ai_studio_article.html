@@ -1,0 +1,167 @@
+<p class="mb-6 font-body-lg text-body-lg text-charcoal-intense leading-relaxed">
+  When engineers want to prototype AI products, they often waste hours setting up heavy local development pipelines, provisioning databases, configuring OAuth clients, and installing packages. Google solved this developer onboarding friction with <strong>Google AI Studio Build</strong> (ai.studio/build)—a cloud-native playground that lets you build, iterate, and deploy full-stack apps through pure natural language.
+</p>
+
+<p class="mb-6 leading-relaxed">
+  Google AI Studio Build is not a simple sandboxed code simulator. It provisions a full, containerized Cloud Run environment, provides automated database hooks (Firebase, Cloud SQL), integrates secure Google Auth and OAuth setups, and supports server-side Gemini API execution. Let's look closely at its technical capabilities, pricing, advantages, and limitations.
+</p>
+
+<!-- CORE CAPABILITIES -->
+<div class="my-10 grid grid-cols-1 md:grid-cols-3 gap-6 font-sans">
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-emerald-50 text-emerald-700 rounded-lg font-bold text-sm">☁</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Cloud Run Containers</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      Your app runs in actual full-stack Linux containers behind an nginx reverse proxy, offering realistic environment execution.
+    </p>
+  </div>
+  
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-amber-50 text-amber-700 rounded-lg font-bold text-sm">🔋</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Batteries Included</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      One-click provisioning for Firebase (Firestore/Auth), Cloud SQL (PostgreSQL), and Workspace OAuth scopes.
+    </p>
+  </div>
+
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-indigo-50 text-indigo-700 rounded-lg font-bold text-sm">🤖</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Gemini Native</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      Server-side Gemini SDK integration is enabled out of the box, keeping secret API keys fully protected from client exposure.
+    </p>
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">1. Technical Architecture: Inside Google AI Studio Build</h2>
+
+<p class="mb-6 leading-relaxed">
+  Google AI Studio Build bridges the gap between conversational mockups and production code. In standard AI chat setups, you receive file code blocks that you must copy-paste, fix dependencies for, and manage on local servers.
+</p>
+
+<p class="mb-6 leading-relaxed">
+  In Google AI Studio Build, the agent handles the workspace directly:
+</p>
+
+<div class="my-6 p-5 bg-[#fcfbf9] border border-cream-dark rounded-xl font-sans text-sm text-[#4a4a48]">
+  <ul class="space-y-3.5 leading-relaxed list-none pl-0">
+    <li class="flex items-start gap-2.5">
+      <span class="text-brass-accent font-bold">1.</span>
+      <div>
+        <strong>Instant Sandboxed Server:</strong> Every session operates on a live container executing Node.js/Vite with an active port 3000 ingress channel.
+      </div>
+    </li>
+    <li class="flex items-start gap-2.5">
+      <span class="text-brass-accent font-bold">2.</span>
+      <div>
+        <strong>Integrated Infrastructure Provisioning:</strong> The agent can trigger native GCP tools, spinning up Firestore or secure Cloud SQL PostgreSQL databases in seconds.
+      </div>
+    </li>
+    <li class="flex items-start gap-2.5">
+      <span class="text-brass-accent font-bold">3.</span>
+      <div>
+        <strong>Zero-trust API Proxies:</strong> All client queries can be routed to safe, server-side Express handlers that protect critical API credentials from DevTools exposure.
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="my-10 rounded-xl overflow-hidden border border-cream-dark shadow-md bg-cream-dark">
+  <img 
+    src="/src/assets/images/google_ai_studio_workspace_1783400570211.jpg" 
+    alt="Google AI Studio workspace showing containerized environment and console" 
+    class="w-full h-auto object-cover max-h-[380px]"
+    referrerPolicy="no-referrer"
+    loading="lazy"
+  />
+  <div class="p-4 bg-cream-paper/70 border-t border-cream-dark/50 text-center font-sans text-xs text-[#7c7a72] italic">
+    Figure 5: Google AI Studio Build console managing dynamic container files, real-time logs, and environment configuration.
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">2. Pricing & Google Cloud Alignment</h2>
+<p class="mb-6 leading-relaxed">
+  Google AI Studio Build is deeply aligned with Google Cloud's developer ecosystem, offering exceptionally competitive access tiers designed to foster rapid software creation.
+</p>
+
+<!-- PRICING TABLE -->
+<div class="my-8 overflow-x-auto font-sans rounded-xl border border-cream-dark/80 shadow-sm">
+  <table class="w-full text-left border-collapse bg-cream-paper">
+    <thead>
+      <tr class="bg-cream-dark/40 text-[#1a1a18] text-xs font-bold uppercase tracking-wider border-b border-cream-dark">
+        <th class="py-4 px-6">Capability Tier</th>
+        <th class="py-4 px-6">Cost</th>
+        <th class="py-4 px-6">Development & Cloud Resources</th>
+        <th class="py-4 px-6">Export & Deployment</th>
+      </tr>
+    </thead>
+    <tbody class="text-sm divide-y divide-cream-dark/50 text-[#2a2a28]">
+      <tr>
+        <td class="py-4 px-6 font-semibold">Prototyping / Free Tier</td>
+        <td class="py-4 px-6">$0</td>
+        <td class="py-4 px-6">Continuous Cloud Run dev workspace, standard Firebase/Auth provisioning</td>
+        <td class="py-4 px-6">Instant one-click zip export, direct GitHub repository push</td>
+      </tr>
+      <tr class="bg-cream-paper/40">
+        <td class="py-4 px-6 font-semibold text-brass-accent">Google Cloud Production</td>
+        <td class="py-4 px-6 font-semibold text-brass-accent">Pay-as-you-go (Standard GCP)</td>
+        <td class="py-4 px-6">Dedicated production clusters, autoscaling, managed Firestore & PostgreSQL billing</td>
+        <td class="py-4 px-6">Fully deployed production URL, continuous delivery setups</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">3. Thorough Pros & Cons</h2>
+
+<div class="my-10 grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
+  <!-- PROS -->
+  <div class="p-6 bg-emerald-50/40 border border-emerald-100 rounded-2xl">
+    <h3 class="font-bold text-emerald-800 text-lg mb-4 flex items-center gap-2">
+      <span class="text-xl">✓</span> Advantages
+    </h3>
+    <ul class="space-y-3.5 text-sm text-emerald-950 leading-relaxed">
+      <li>
+        <strong>Zero Setup Friction:</strong> Build a complete full-stack React + Express + SQLite/Postgres app in seconds without ever touching a CLI on your local system.
+      </li>
+      <li>
+        <strong>Realistic Execution:</strong> Running on actual Linux containers means what you see in the preview matches exactly how it runs on a production server.
+      </li>
+      <li>
+        <strong>Secure Key Handling:</strong> Built-in support for server-side API proxying and environment variable injection protects proprietary keys effortlessly.
+      </li>
+      <li>
+        <strong>Clean Codebase Exports:</strong> Code generated is standard, modular, highly readable TypeScript that can be exported immediately to any other environment.
+      </li>
+    </ul>
+  </div>
+
+  <!-- CONS -->
+  <div class="p-6 bg-red-50/40 border border-red-100 rounded-2xl">
+    <h3 class="font-bold text-red-800 text-lg mb-4 flex items-center gap-2">
+      <span class="text-xl">✗</span> Drawbacks
+    </h3>
+    <ul class="space-y-3.5 text-sm text-red-950 leading-relaxed">
+      <li>
+        <strong>Sandboxed API Limits:</strong> Certain browser-sensitive client APIs (like window.open or custom popup window setups) face iframe sandboxing restrictions unless opened in a new tab.
+      </li>
+      <li>
+        <strong>Strict Ingress Port:</strong> All services must conform and route through the assigned external port 3000 mapping, meaning custom multi-port designs are restricted.
+      </li>
+      <li>
+        <strong>Not Intended for Heavy Local Workspaces:</strong> This is a cloud-native prototyping suite, so developers looking for extensive offline local capabilities will still need to export their projects.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">4. The Verdict</h2>
+<p class="mb-6 leading-relaxed">
+  Google AI Studio Build represents an incredibly innovative advancement in rapid software development. By pairing a conversational full-stack agent with a fully provisioned, live-running cloud container, Google has made full-stack prototyping faster than ever before. It is an indispensable tool for product managers, startup founders, and senior engineers seeking to build functional validation concepts instantly.
+</p>
