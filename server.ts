@@ -45,9 +45,10 @@ app.use((req, res, next) => {
 });
 
 // Initialize SQLite Database Engine
-let db: Database.Database;
+let db: Database.Database | null = null;
+let dbProxy: any = null;
 
-function initDB() {
+function performDatabaseSetup() {
   if (!db) {
     db = new Database(DB_FILE);
     db.pragma('journal_mode = WAL');
@@ -812,6 +813,138 @@ def calculate_qwen_efficiency(multilingual_text):
     }
   }
   return db;
+}
+
+function recoverDatabase() {
+  console.warn("CRITICAL: SQLite database corruption detected! Initiating automatic recovery...");
+  try {
+    if (db) {
+      try { db.close(); } catch (e) {}
+      db = null;
+    }
+    const filesToDelete = [DB_FILE, `${DB_FILE}-shm`, `${DB_FILE}-wal`];
+    for (const file of filesToDelete) {
+      if (fs.existsSync(file)) {
+        try { fs.unlinkSync(file); } catch (e) {}
+      }
+    }
+    console.log("Corrupted database files removed successfully.");
+  } catch (recoveryErr) {
+    console.error("Failed to recover database files:", recoveryErr);
+  }
+  db = null;
+}
+
+function wrapStatement(stmt: any) {
+  return new Proxy(stmt, {
+    get(target, prop, receiver) {
+      const val = Reflect.get(target, prop, receiver);
+      if (typeof val === 'function') {
+        return function (...args: any[]) {
+          try {
+            return val.apply(target, args);
+          } catch (err: any) {
+            if (err.code === 'SQLITE_CORRUPT' || (err.message && (err.message.includes('malformed') || err.message.includes('corrupt')))) {
+              console.warn(`Database corruption detected during statement execution '${String(prop)}'. Re-creating database...`, err);
+              recoverDatabase();
+              initDB();
+              const newDb = db;
+              if (!newDb) throw new Error("Database recovery failed");
+              const newStmt = newDb.prepare(target.source);
+              const newVal = Reflect.get(newStmt, prop);
+              return newVal.apply(newStmt, args);
+            }
+            throw err;
+          }
+        };
+      }
+      return val;
+    }
+  });
+}
+
+function initDB(): Database.Database {
+  if (!db) {
+    try {
+      performDatabaseSetup();
+    } catch (err: any) {
+      if (err.code === 'SQLITE_CORRUPT' || (err.message && (err.message.includes('malformed') || err.message.includes('corrupt')))) {
+        console.error("Database corruption caught during startup. Performing auto-recovery...", err);
+        recoverDatabase();
+        try {
+          performDatabaseSetup();
+        } catch (retryErr) {
+          console.error("Critical failure during database recovery retry:", retryErr);
+          throw retryErr;
+        }
+      } else {
+        throw err;
+      }
+    }
+  }
+
+  if (!dbProxy) {
+    dbProxy = new Proxy({}, {
+      get(target, prop, receiver) {
+        if (!db) {
+          try {
+            performDatabaseSetup();
+          } catch (err) {
+            throw new Error("Database not initialized and recovery failed: " + err);
+          }
+        }
+        const currentDb = db!;
+        const val = Reflect.get(currentDb, prop, currentDb);
+        if (typeof val === 'function') {
+          return function (...args: any[]) {
+            try {
+              const result = val.apply(currentDb, args);
+              if (prop === 'prepare' && result && typeof result === 'object') {
+                return wrapStatement(result);
+              }
+              if (prop === 'transaction' && typeof result === 'function') {
+                return function (...txArgs: any[]) {
+                  try {
+                    return result.apply(null, txArgs);
+                  } catch (txErr: any) {
+                    if (txErr.code === 'SQLITE_CORRUPT' || (txErr.message && (txErr.message.includes('malformed') || txErr.message.includes('corrupt')))) {
+                      console.warn("Database corruption detected during transaction execution. Re-creating database...", txErr);
+                      recoverDatabase();
+                      initDB();
+                      const newDb = db;
+                      if (!newDb) throw new Error("Database recovery failed");
+                      const newTx = newDb.transaction(args[0]);
+                      return newTx.apply(null, txArgs);
+                    }
+                    throw txErr;
+                  }
+                };
+              }
+              return result;
+            } catch (err: any) {
+              if (err.code === 'SQLITE_CORRUPT' || (err.message && (err.message.includes('malformed') || err.message.includes('corrupt')))) {
+                console.warn(`Database corruption detected during '${String(prop)}' call. Re-creating database...`, err);
+                recoverDatabase();
+                initDB();
+                const newDb = db;
+                if (!newDb) throw new Error("Database recovery failed");
+                const newVal = Reflect.get(newDb, prop, newDb);
+                const result = newVal.apply(newDb, args);
+                if (prop === 'prepare' && result && typeof result === 'object') {
+                  return wrapStatement(result);
+                }
+                return result;
+              }
+              throw err;
+            }
+          };
+        }
+        return val;
+      }
+    });
+  }
+
+  return dbProxy;
 }
 
 // REST Backend APIs
