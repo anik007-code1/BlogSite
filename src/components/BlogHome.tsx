@@ -16,7 +16,17 @@ export const BlogHome: React.FC<BlogHomeProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const categories = ['All', 'Programming', 'Tech', 'Travel', 'Photography'];
+  // Dynamically extract categories from all published articles
+  const categories = React.useMemo(() => {
+    const uniqueCats = new Set<string>();
+    articles.forEach((a) => {
+      if (a.category && a.status === 'Published') {
+        const capitalized = a.category.charAt(0).toUpperCase() + a.category.slice(1);
+        uniqueCats.add(capitalized);
+      }
+    });
+    return ['All', ...Array.from(uniqueCats).sort()];
+  }, [articles]);
 
   // Filtration logic
   const filteredArticles = articles.filter((article) => {

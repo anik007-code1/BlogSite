@@ -747,6 +747,29 @@ def calculate_qwen_efficiency(multilingual_text):
           seoTitle: 'Google AI Studio Build Review: Cloud-Native Workspace | LLM Review Pro',
           seoDescription: 'Read our comprehensive review of Google AI Studio Build (ai.studio/build). We evaluate full-stack Cloud Run containers, Firebase integrations, database setups, and pros and cons.',
           createdAt: '2026-07-06T12:00:00Z'
+        },
+        {
+          id: 'cursor_ai_review',
+          title: 'Cursor AI: The Definitive Technical Evaluation of the Frontier AI Code Editor',
+          slug: 'cursor-ai-definitive-technical-evaluation-frontier-code-editor',
+          category: 'Engineering',
+          summary: 'An exhaustive, developer-first investigation into Cursor, the AI-native fork of VS Code. We evaluate its multi-file Composer, Tab autocompletion, real-time index synchronization, actual monthly costs, and real-world pros and cons.',
+          content: fs.existsSync(path.join(process.cwd(), 'cursor_article.html'))
+            ? fs.readFileSync(path.join(process.cwd(), 'cursor_article.html'), 'utf8')
+            : '',
+          author: 'Anik Admin',
+          authorRole: 'Senior Tech Evaluator',
+          authorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop',
+          publishedDate: 'Jul 06, 2026',
+          status: 'Published',
+          isFeatured: true,
+          featuredImage: '/src/assets/images/cursor_ai_editor_review_1783400089698.jpg',
+          tags: ['Cursor', 'AI', 'IDE', 'Programming', 'DevTools'],
+          views: 1842,
+          readingTime: '12 min read',
+          seoTitle: 'Cursor AI Editor: Detailed Technical Review, Pricing, Pros & Cons | LLM Review Pro',
+          seoDescription: 'Read our comprehensive deep-dive review of Cursor, the fork of VS Code. We cover core AI features, pricing models, developer insights, and full pros and cons.',
+          createdAt: '2026-07-06T12:00:00Z'
         }
       ];
 
