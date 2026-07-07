@@ -1,0 +1,210 @@
+<p class="mb-6 font-body-lg text-body-lg text-charcoal-intense leading-relaxed">
+  Over the last year, a quiet migration has swept through the software engineering community. Developers who swore by raw, highly-customized Neovim setups, or had settled into the comfortable, extension-laden embrace of vanilla Visual Studio Code, began migrating their workspaces. The destination? <strong>Cursor</strong>, an AI-native fork of VS Code developed by Anysphere. 
+</p>
+
+<p class="mb-6 leading-relaxed">
+  While legacy editors treat artificial intelligence as a bolted-on sidebar or an autocomplete extension, Cursor was rebuilt from the ground up to treat LLMs as first-class citizens. By directly integrating deep codebase context, multi-file code synthesis, and predictive editing models into the editor's core runtime, it offers a dramatic paradigm shift. This definitive technical evaluation breaks down how Cursor works, dissects its core capabilities, weighs its pricing plans, and examines its real-world pros and cons.
+</p>
+
+<!-- 1. CORE MECHANICS GRID -->
+<div class="my-10 grid grid-cols-1 md:grid-cols-3 gap-6 font-sans">
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-emerald-50 text-emerald-700 rounded-lg font-bold text-sm">01</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Predictive Editing</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      <strong>Cursor Tab</strong> predicts code edits across multiple non-contiguous lines, jumping ahead of your cursor to suggest completions before you type.
+    </p>
+  </div>
+  
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-amber-50 text-amber-700 rounded-lg font-bold text-sm">02</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Codebase Context</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      A background indexing daemon creates vector embeddings of your files locally, synchronizing in real-time to answer semantically complex queries.
+    </p>
+  </div>
+
+  <div class="p-5 bg-cream-paper border border-cream-dark/60 rounded-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="p-2 bg-indigo-50 text-indigo-700 rounded-lg font-bold text-sm">03</span>
+      <h3 class="font-bold text-charcoal-intense text-sm uppercase tracking-wider">Multi-File Agents</h3>
+    </div>
+    <p class="text-xs text-[#7c7a72] leading-relaxed">
+      <strong>Composer (Cmd+I)</strong> operates as a persistent agent, planning and executing edits across dozens of files to implement full features or refactors.
+    </p>
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">1. Core AI Mechanics & Architecture</h2>
+
+<h3 class="text-xl font-serif text-charcoal-intense font-bold mt-8 mb-3">Cursor Tab (The Evolution of Autocomplete)</h3>
+<p class="mb-6 leading-relaxed">
+  Traditional completions (like standard GitHub Copilot) function primarily on single-line or block-level suggestions. While valuable, they require you to type linear code. <strong>Cursor Tab</strong> (formerly Copilot++) introduces a predictive editor model that analyzes your intent.
+</p>
+<p class="mb-6 leading-relaxed">
+  If you edit a method signature in a controller file, Cursor Tab doesn't just suggest the rest of that signature; it predicts that you'll need to update the mock test file, and automatically cues up a multi-line suggested edit inside the test suite, allowing you to hit <code>Tab</code>, watch the cursor jump to the correct file, and accept the completion instantly.
+</p>
+
+<!-- CODE BLOCK COMPARISON -->
+<div class="my-10 shadow-lg rounded-xl overflow-hidden border border-cream-dark font-sans">
+  <div class="bg-[#131b2e] text-[#a5badb] px-4 py-3 font-mono text-xs flex justify-between items-center border-b border-cream-dark/20">
+    <span>predictive_autocompletion.ts</span>
+    <span class="text-xs uppercase text-brass-accent font-semibold tracking-wider font-sans">Cursor Tab Edit Path</span>
+  </div>
+  <pre class="bg-[#131b2e] p-6 overflow-x-auto text-[#eef3fb] font-mono text-xs md:text-sm leading-relaxed"><code>// Developer starts editing:
+export function processUserTransaction(userId: string, amount: number) {
+  const account = db.findAccount(userId);
+  // [Cursor Tab Predicts and Suggests In Light Gray]:
+  if (!account) {
+    logger.error(`Account not found for user ${userId}`);
+    throw new Error("TransactionFailed: InvalidAccount");
+  }
+  account.balance += amount;
+  return db.save(account);
+}</code></pre>
+</div>
+
+<h3 class="text-xl font-serif text-charcoal-intense font-bold mt-8 mb-3">Composer: The Agentic Revolution</h3>
+<p class="mb-6 leading-relaxed">
+  Launched in late 2024, the <strong>Composer (Cmd + I)</strong> panel moved Cursor from an "editor assistant" to an "autonomous coding partner." Instead of executing inline modifications on a single file, Composer orchestrates modifications across multiple files. 
+</p>
+<p class="mb-6 leading-relaxed">
+  By combining advanced planning prompts with custom LLMs, you can type instructions such as: <em>"Add an export-to-CSV button on the analytics page and connect it to a new backend API endpoint in server.ts"</em>. Composer will layout a multi-step checklist, write the API route, update the database types, write the frontend component, and present a side-by-side git-like diff for you to review and accept.
+</p>
+
+<div class="my-10 rounded-xl overflow-hidden border border-cream-dark shadow-md bg-cream-dark">
+  <img 
+    src="/src/assets/images/cursor_composer_map_1783400114669.jpg" 
+    alt="Cursor Composer codebase network map visualization" 
+    class="w-full h-auto object-cover max-h-[380px]"
+    referrerPolicy="no-referrer"
+    loading="lazy"
+  />
+  <div class="p-4 bg-cream-paper/70 border-t border-cream-dark/50 text-center font-sans text-xs text-[#7c7a72] italic">
+    Figure 1: Cursor's Background Indexing Daemon map of codebase embeddings, which helps the Composer agent coordinate multi-file changes seamlessly.
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">2. Real-Time Embeddings & Codebase Indexing</h2>
+<p class="mb-6 leading-relaxed">
+  To make LLMs useful in a large-scale enterprise project, the editor must understand the broader context. Passing an entire 100,000-line codebase into every prompt is financially prohibitive and runs into model context-window thresholds.
+</p>
+<p class="mb-6 leading-relaxed">
+  Cursor solves this through <strong>local vector embeddings</strong>. When you open a project, Cursor runs a highly-optimized background indexing daemon. This daemon splits files into semantic chunks, generates vectors using fast, low-cost embedding models, and saves the database locally. 
+</p>
+<p class="mb-6 leading-relaxed">
+  Whenever you start a query with <code>@Codebase</code>, Cursor performs a cosine-similarity vector search against your index, pulls the most relevant snippets, and injects them as high-quality context into your LLM prompt. This allows you to ask questions like: <em>"Where are session cookies configured and how can I adjust their expiry?"</em> and receive a precise, working response based on actual configurations.
+</p>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">3. The Pricing Landscape</h2>
+<p class="mb-6 leading-relaxed">
+  Operating frontier-tier models like GPT-4o, Claude 3.5 Sonnet, and proprietary reasoning engines is highly resource-intensive. Cursor offers three primary subscription tiers alongside a powerful "bring your own key" (BYOK) alternative.
+</p>
+
+<!-- PRICING TABLE -->
+<div class="my-8 overflow-x-auto font-sans rounded-xl border border-cream-dark/80 shadow-sm">
+  <table class="w-full text-left border-collapse bg-cream-paper">
+    <thead>
+      <tr class="bg-cream-dark/40 text-[#1a1a18] text-xs font-bold uppercase tracking-wider border-b border-cream-dark">
+        <th class="py-4 px-6">Tier</th>
+        <th class="py-4 px-6">Cost</th>
+        <th class="py-4 px-6">Model Usage Limits</th>
+        <th class="py-4 px-6">Key Capabilities Included</th>
+      </tr>
+    </thead>
+    <tbody class="text-sm divide-y divide-cream-dark/50 text-[#2a2a28]">
+      <tr>
+        <td class="py-4 px-6 font-semibold">Free / Hobby</td>
+        <td class="py-4 px-6">$0 / mo</td>
+        <td class="py-4 px-6">50 fast requests, 200 Cursor Tab uses</td>
+        <td class="py-4 px-6">Local indexing, chat, Composer preview</td>
+      </tr>
+      <tr class="bg-cream-paper/40">
+        <td class="py-4 px-6 font-semibold text-brass-accent">Pro (Most Popular)</td>
+        <td class="py-4 px-6 font-semibold text-brass-accent">$20 / mo</td>
+        <td class="py-4 px-6">500 fast requests/mo, unlimited slow queries</td>
+        <td class="py-4 px-6">Unlimited Cursor Tab completions, high-priority access</td>
+      </tr>
+      <tr>
+        <td class="py-4 px-6 font-semibold">Business</td>
+        <td class="py-4 px-6">$40 / user/mo</td>
+        <td class="py-4 px-6">Pro limits + dedicated team management</td>
+        <td class="py-4 px-6">Zero-data retention agreements (GDPR/SOC2), admin controls</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3 class="text-xl font-serif text-charcoal-intense font-bold mt-8 mb-3">Power-User Alternative: Bring Your Own API Key (BYOK)</h3>
+<p class="mb-6 leading-relaxed">
+  For developers who want full transparency and granular control, Cursor supports configuring custom API keys for OpenAI, Anthropic, and Google Gemini. 
+</p>
+<div class="my-6 p-5 bg-[#fcfbf9] border border-dashed border-cream-dark/80 rounded-xl font-sans">
+  <h4 class="font-bold text-xs uppercase tracking-wide text-charcoal-intense mb-2">BYOK Financial Mechanics:</h4>
+  <ul class="list-disc pl-5 text-sm text-[#4a4a48] space-y-2 leading-relaxed">
+    <li>You pay only for the exact raw tokens you consume directly to the API providers.</li>
+    <li>For casual or low-volume developers, monthly bills via BYOK often sit below $5.</li>
+    <li><strong>The Catch:</strong> High-priority features like Cursor Tab completions and the highly-integrated multi-file Composer are optimized through Cursor's custom internal model pipelines and are disabled or highly restricted on raw BYOK plans.</li>
+  </ul>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">4. Exhaustive Pros & Cons</h2>
+
+<div class="my-10 grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
+  <!-- PROS -->
+  <div class="p-6 bg-emerald-50/40 border border-emerald-100 rounded-2xl">
+    <h3 class="font-bold text-emerald-800 text-lg mb-4 flex items-center gap-2">
+      <span class="text-xl">✓</span> Advantages
+    </h3>
+    <ul class="space-y-3.5 text-sm text-emerald-950 leading-relaxed">
+      <li>
+        <strong>Absolute VS Code Parity:</strong> Because Cursor is an open-source fork (not an extension), you can import all your extensions, keybinds, and configurations in 1-click on startup.
+      </li>
+      <li>
+        <strong>Incredible Cognitive Relief:</strong> Cursor Tab predicts entire blocks of edits, completely eliminating repetitive boilerplate drafting and speed-ups testing cycles.
+      </li>
+      <li>
+        <strong>Composer Orchestration:</strong> The ability to edit 5+ files simultaneously while keeping track of type dependencies is a game-changer for solo developers.
+      </li>
+      <li>
+        <strong>Deep Search Mechanics:</strong> The vector-based codebase indexing allows queries that standard text filters can't handle.
+      </li>
+    </ul>
+  </div>
+
+  <!-- CONS -->
+  <div class="p-6 bg-red-50/40 border border-red-100 rounded-2xl">
+    <h3 class="font-bold text-red-800 text-lg mb-4 flex items-center gap-2">
+      <span class="text-xl">✗</span> Drawbacks
+    </h3>
+    <ul class="space-y-3.5 text-sm text-red-950 leading-relaxed">
+      <li>
+        <strong>Fork Synchronization Lag:</strong> Since Cursor is a downstream fork, new features and security updates in official Microsoft VS Code can take weeks or months to arrive.
+      </li>
+      <li>
+        <strong>Telemetry and Privacy Concerns:</strong> Indexing your code in cloud endpoints requires trust. Although Cursor offers local indexing and zero-data-retention on Business tiers, standard Pro tiers may review some prompts for fine-tuning.
+      </li>
+      <li>
+        <strong>Proprietary Model Lock-In:</strong> The most fluid predictive features rely on Cursor's custom models. If their servers experience latency or downtimes, the editor returns to feeling like standard VS Code.
+      </li>
+      <li>
+        <strong>Subscription Fragmentation:</strong> Having to pay an extra $20/month alongside other active tools (like Copilot, ChatGPT Pro, or Claude Pro) adds to the developer's monthly tool inflation.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="text-2xl md:text-3xl font-serif text-charcoal-intense font-bold mt-12 mb-4">5. The Verdict: Is Cursor Worth It?</h2>
+<p class="mb-6 leading-relaxed">
+  For engineers spending 6+ hours a day actively drafting, maintaining, and refactoring software codebases, <strong>Cursor is easily worth the $20 monthly subscription</strong>. The sheer increase in throughput, combined with the reduction of cognitive load from writing trivial helper functions, more than compensates for the price within a few hours of work.
+</p>
+<p class="mb-6 leading-relaxed">
+  However, for casual developers, hobbyists, or those with highly strict corporate security policies forbidding the indexing of codebases in external servers, sticking to vanilla VS Code paired with a local LLM or simple inline models is still a strong, highly cost-effective setup.
+</p>
+<p class="mb-12 leading-relaxed">
+  Cursor is not just a coding tool; it's a glimpse into the future of human-computer interaction. It shifts the role of a programmer from a typist to a thoughtful reviewer, editor, and systems orchestrator.
+</p>
